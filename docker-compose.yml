@@ -1,0 +1,19 @@
+version: '3.6'
+
+services:
+  wordpress:
+    build: .
+    environment:
+      - 'WORDPRESS_DB_HOST=wordpress-db'
+      - 'WORDPRESS_DB_NAME=wordpress'
+      - 'WORDPRESS_DB_PASSWORD=wordpress'
+      - 'WORDPRESS_DB_USER=wordpress'
+    ports:
+      - 8080:80
+  wordpress-db:
+    environment:
+      - 'MARIADB_DATABASE=wordpress'
+      - 'MARIADB_PASSWORD=wordpress'
+      - 'MARIADB_RANDOM_ROOT_PASSWORD=yes'
+      - 'MARIADB_USER=wordpress'
+    image: mariadb:latest
