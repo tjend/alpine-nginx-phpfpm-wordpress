@@ -15,6 +15,9 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       -
+        name: Set REPOSITORY_NAME environment variable
+        run: echo "REPOSITORY_NAME=$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)" >> $GITHUB_ENV
+      -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       -
@@ -37,7 +40,7 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/docker-nginx-phpfpm-wordpress:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.REPOSITORY_NAME }}:latest
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
