@@ -11,6 +11,8 @@ RUN \
   dos2unix /var/www/localhost/htdocs/wp-config.php && \
   # use FS_METHOD direct so that updates to wp-content work(due to only wp-content being writable)
   echo "define('FS_METHOD', 'direct');" >> /var/www/localhost/htdocs/wp-config.php && \
+  # disable core wordpress updates as filesytem isn't writable
+  echo "define('WP_AUTO_UPDATE_CORE', false);" >> /var/www/localhost/htdocs/wp-config.php && \
   # chown and make wp-content writable
   chown -R www-data:www-data /var/www/localhost/htdocs/wp-content && \
   find /var/www/localhost/htdocs/wp-content -type f -exec chmod 664 {} \; && \
