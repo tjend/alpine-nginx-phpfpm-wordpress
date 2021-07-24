@@ -13,6 +13,8 @@ RUN \
   echo "define('FS_METHOD', 'direct');" >> /var/www/localhost/htdocs/wp-config.php && \
   # disable core wordpress updates as filesytem isn't writable
   echo "define('WP_AUTO_UPDATE_CORE', false);" >> /var/www/localhost/htdocs/wp-config.php && \
+  # enable wordpress advanced cache(only when wp-content/advanced-cache.php exists)
+  echo "define('WP_CACHE', true);" >> /var/www/localhost/htdocs/wp-config.php && \
   # chown and make wp-content writable
   chown -R www-data:www-data /var/www/localhost/htdocs/wp-content && \
   find /var/www/localhost/htdocs/wp-content -type f -exec chmod 664 {} \; && \
