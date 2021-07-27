@@ -20,4 +20,8 @@ RUN \
   find /var/www/localhost/htdocs/wp-content -type f -exec chmod 664 {} \; && \
   find /var/www/localhost/htdocs/wp-content -type d -exec chmod 775 {} \;
 
+# set phpfpm opcache validate timestamps to off for performance reasons
+# wordpress will clear opcache after plugin/theme updates
+ENV PHPFPM_OPCACHE_VALIDATE_TIMESTAMPS off
+
 VOLUME [ "/var/www/localhost/htdocs/wp-content" ]
