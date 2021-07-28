@@ -24,7 +24,15 @@ RUN \
   # chown and make wp-content writable
   chown -R www-data:www-data /var/www/localhost/htdocs/wp-content && \
   find /var/www/localhost/htdocs/wp-content -type f -exec chmod 664 {} \; && \
-  find /var/www/localhost/htdocs/wp-content -type d -exec chmod 775 {} \;
+  find /var/www/localhost/htdocs/wp-content -type d -exec chmod 775 {} \; && \
+  # setup wp-cron
+  echo "define('DISABLE_WP_CRON', true);" >> /var/www/localhost/htdocs/wp-config.php && \
+  echo "*/15 * * * * curl -v localhost/wp-cron.php" > /etc/crontabs/nobody && \
+  rm -f /etc/crontabs/root && \
+  mkdir /etc/services.d/crond && \
+  echo "#!/usr/bin/execlineb -P" > /etc/services.d/crond/run && \
+  echo "# run in foreground" >> /etc/services.d/crond/run && \
+  echo "crond -f" >> /etc/services.d/crond/run
 
 # set phpfpm opcache validate timestamps to off for performance reasons
 # wordpress will clear opcache after plugin/theme updates
