@@ -13,6 +13,12 @@ RUN \
   echo "define('FS_METHOD', 'direct');" >> /var/www/localhost/htdocs/wp-config.php && \
   # disable core wordpress updates as filesytem isn't writable
   echo "define('WP_AUTO_UPDATE_CORE', false);" >> /var/www/localhost/htdocs/wp-config.php && \
+  # disable health check for background updates(wordpress core)
+  echo "function remove_core_update_check(\$tests) {" >> /var/www/localhost/htdocs/wp-config.php && \
+  echo "	unset(\$tests['async']['background_updates']);" >> /var/www/localhost/htdocs/wp-config.php && \
+  echo "	return \$tests;" >> /var/www/localhost/htdocs/wp-config.php && \
+  echo "}" >> /var/www/localhost/htdocs/wp-config.php && \
+  echo "add_filter('site_status_tests', 'remove_core_update_check');" >> /var/www/localhost/htdocs/wp-config.php && \
   # enable wordpress advanced cache(only when wp-content/advanced-cache.php exists)
   echo "define('WP_CACHE', true);" >> /var/www/localhost/htdocs/wp-config.php && \
   # chown and make wp-content writable
