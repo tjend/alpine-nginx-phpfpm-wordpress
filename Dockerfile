@@ -31,7 +31,7 @@ RUN \
   find /var/www/localhost/htdocs/wp-content -type d -exec chmod 775 {} \; && \
   # setup wp-cron
   echo "define('DISABLE_WP_CRON', true);" >> /var/www/localhost/htdocs/wp-config-docker.php && \
-  echo "*/15 * * * * curl -v localhost/wp-cron.php" > /etc/crontabs/nobody && \
+  echo "*/15 * * * * curl -s localhost/wp-cron.php" > /etc/crontabs/nobody && \
   rm -f /etc/crontabs/root && \
   mkdir /etc/services.d/crond && \
   echo "#!/usr/bin/execlineb -P" > /etc/services.d/crond/run && \
