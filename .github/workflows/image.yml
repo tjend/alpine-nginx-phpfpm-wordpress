@@ -6,6 +6,7 @@ on:
     branches: main
   schedule:
     - cron: '13 4 * * *' # 04:13 daily
+  workflow_dispatch:
 
 jobs:
   buildx:
