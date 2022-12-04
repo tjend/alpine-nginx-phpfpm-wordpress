@@ -1,5 +1,5 @@
 # use latest nginx-phpfpm image
-FROM tjend/alpine-nginx-phpfpm:latest
+FROM docker.io/tjend/alpine-nginx-phpfpm:latest
 
 RUN \
   # download wordpress to /var/www/localhost/htdocs
