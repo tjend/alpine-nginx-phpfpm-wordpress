@@ -1,4 +1,4 @@
-version: '3.6'
+version: '3.8'
 
 services:
   wordpress:
@@ -8,7 +8,7 @@ services:
       - 'WORDPRESS_DB_NAME=wordpress'
       - 'WORDPRESS_DB_PASSWORD=wordpress'
       - 'WORDPRESS_DB_USER=wordpress'
-    image: docker.io/tjend/alpine-nginx-phpfpm-wordpress
+    image: localhost/alpine-nginx-phpfpm-wordpress
     ports:
       - 8080:80
   wordpress-db:
